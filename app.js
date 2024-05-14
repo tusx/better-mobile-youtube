@@ -1,0 +1,200 @@
+
+// show extention is loaded
+console.log("Better Mobile Youtube is Loaded!");
+
+
+
+function open_link_in_new_tab() {
+
+    // Select all anchor elements on the page
+    const links = document.querySelectorAll('a');
+
+    // Loop through each link
+    links.forEach(link => {
+        // Check if the link does not have a target attribute and its href contains the word "watch"
+        if (!link.hasAttribute('target') && link.href.toLowerCase().includes('watch?')) {
+            // Add target="_blank" attribute to the link
+            link.setAttribute('target', '_blank');
+        }
+    });
+
+    // Call modifyLinks again after 1 second
+    setTimeout(open_link_in_new, 1000);
+
+}
+
+
+function open_link_in_new() {
+    if (window.location.href.includes("watch?")) {
+        // Page URL contains the word "watch"
+        console.log("No need to make video open in new tab");
+        // Your additional logic here
+    } else {
+
+        console.log("Videos should be opned in new tab");
+        open_link_in_new_tab();
+    }
+
+}
+
+
+function autoplay_video() {
+
+
+
+    // Select all elements with the specified class
+    const elements = document.querySelectorAll('.ytp-button');
+
+    // Iterate over the NodeList and trigger a click event on each element
+    elements.forEach(element => {
+        element.click();
+    });
+
+
+
+    const videoElement = document.querySelector('video');
+    // videoElement.play();
+
+    console.log("Auto Play Done");
+}
+
+
+function load_custom_playback_speed() {
+
+    // Assuming 'videoElement' is a reference to the <video> element
+    const videoElement = document.querySelector('video');
+
+    browser.storage.local.get('bmy_playback_speed').then(result => {
+        const data = Number(result.bmy_playback_speed);
+
+        console.log('Retrieved playback speed:', data);
+
+        // Set the playback rate
+        videoElement.playbackRate = data;
+
+    }).catch(error => {
+        console.error('Error retrieving playback speed:', error);
+    });
+
+
+
+
+}
+
+function on_playback_speed_changed() {
+
+    // Get a reference to the select element
+    const selectElement = document.getElementById('player-speed-dropdown:3');
+
+    // Add an event listener for the 'change' event
+    selectElement.addEventListener('change', function (event) {
+        // Your event handling logic here
+        data = event.target.value;
+
+        browser.storage.local.set({ "bmy_playback_speed": data }).then(() => {
+            console.log('playback speed saved locally:', data);
+
+        }).catch(error => {
+            console.error('Error saving playback speed:', error);
+        });
+
+        console.log('Saved playback speed:', event.target.value);
+    });
+
+}
+
+
+function on_player_settings_clicked() {
+
+    console.log("Player settings Watcher, ON!");
+
+    // Get all elements with the specified class
+    const buttons = document.querySelectorAll('.player-settings-icon');
+
+    // Iterate through each button and add an event listener
+    buttons.forEach(button => {
+        button.addEventListener('click', function (event) {
+            // Your event handling logic here
+            console.log('Player Settings Button clicked');
+            // on_playback_speed_changed();
+            setTimeout(on_playback_speed_changed, 500);
+        });
+    });
+
+
+
+}
+
+
+
+
+
+function yotube_logo() {
+    return `
+    
+<a href="http://m.youtube.com/" style="font-size:25px;" >  <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" height="25px" style="margin-left:10px;" >  YouTube </a>
+    
+    `;
+}
+
+function youtube_loading() {
+
+    return `<a href="http://m.youtube.com/" style="font-size:25px;" >  <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" height="25px" style="margin-left:10px;" >  Loading... </a>`;
+
+}
+
+
+function change_youtube_logo() {
+    youtube_logo = document.getElementsByTagName('ytm-home-logo');
+    youtube_logo[0].innerHTML = yotube_logo();
+    console.log("Youtube Logo Changed.");
+}
+
+function change_youtube_logo_2_loading() {
+    youtube_logo = document.getElementsByTagName('ytm-home-logo');
+    youtube_logo[0].innerHTML = youtube_loading();
+}
+
+
+function on_video_page() {
+    document.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', function (event) {
+            // Get the href attribute of the clicked link
+            const href = this.getAttribute('href');
+
+            // Navigate to the clicked link
+            window.location.href = href;
+        });
+    });
+}
+
+
+function run_extentions_functions() {
+    console.log("Extention Functions now runing");
+
+    setTimeout(on_video_page, 1500);
+
+    setTimeout(autoplay_video, 1000);
+
+    setTimeout(on_player_settings_clicked, 3000);
+
+    setTimeout(load_custom_playback_speed, 2000);
+
+    setTimeout(change_youtube_logo, 1000);
+
+    setTimeout(open_link_in_new, 1500);
+
+
+    // just incase for very slow connections
+    setTimeout(change_youtube_logo, 5000);
+    setTimeout(change_youtube_logo, 10000);
+    setTimeout(change_youtube_logo, 20000);
+
+
+}
+
+
+setTimeout(change_youtube_logo_2_loading, 1000);
+
+setTimeout(run_extentions_functions, 2000); // Delay of 1000 = 1 seconds
+
