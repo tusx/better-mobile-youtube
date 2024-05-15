@@ -1,5 +1,5 @@
 ## Better Mobile Youtube 
-![alt text](https://raw.githubusercontent.com/tusx/better-mobile-youtube/main/icon.png "Better Mobile Youtube")
+<img src="https://raw.githubusercontent.com/tusx/better-mobile-youtube/main/icon.png " alt="drawing" style="height:200px;"/>
 
 Better Mobile Youtube aims to provide better user experience and feature for mobile youtube on firefox.
 
