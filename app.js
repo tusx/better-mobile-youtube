@@ -174,7 +174,7 @@ function run_extentions_functions() {
 
     setTimeout(on_video_page, 1500);
 
-    setTimeout(autoplay_video, 1000);
+    setTimeout(autoplay_video, 500);
 
     setTimeout(on_player_settings_clicked, 3000);
 
@@ -182,7 +182,7 @@ function run_extentions_functions() {
 
     setTimeout(change_youtube_logo, 1000);
 
-    setTimeout(open_link_in_new, 1500);
+    // setTimeout(open_link_in_new, 1500);
 
 
     // just incase for very slow connections
@@ -196,5 +196,5 @@ function run_extentions_functions() {
 
 setTimeout(change_youtube_logo_2_loading, 1000);
 
-setTimeout(run_extentions_functions, 2000); // Delay of 1000 = 1 seconds
+setTimeout(run_extentions_functions, 1000); // Delay of 1000 = 1 seconds
 
