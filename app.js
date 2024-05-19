@@ -118,6 +118,8 @@ function on_player_settings_clicked() {
             console.log('Player Settings Button clicked');
             // on_playback_speed_changed();
             setTimeout(on_playback_speed_changed, 500);
+            setTimeout(change_youtube_logo, 500);
+            setTimeout(change_youtube_logo, 10000);
         });
     });
 
