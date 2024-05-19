@@ -158,6 +158,18 @@ function change_youtube_logo_2_loading() {
 }
 
 
+function on_yt_logo_clicked() {
+    let youtube_logo = document.getElementsByTagName('ytm-home-logo');
+    yotube_logo.addEventListener("click", function (event) {
+        // Get the href attribute of the clicked link
+        const href = "https://m.youtube.com/";
+
+        // Navigate to the clicked link
+        window.location.href = href;
+    });
+}
+
+
 function on_video_page() {
     document.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', function (event) {
@@ -183,6 +195,8 @@ function run_extentions_functions() {
     setTimeout(load_custom_playback_speed, 2000);
 
     setTimeout(change_youtube_logo, 1000);
+
+    setTimeout(on_yt_logo_clicked, 1000);
 
     // setTimeout(open_link_in_new, 1500);
 
