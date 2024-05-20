@@ -4,38 +4,38 @@ console.log("Better Mobile Youtube is Loaded!");
 
 
 
-function open_link_in_new_tab() {
+// function open_link_in_new_tab() {
 
-    // Select all anchor elements on the page
-    const links = document.querySelectorAll('a');
+//     // Select all anchor elements on the page
+//     const links = document.querySelectorAll('a');
 
-    // Loop through each link
-    links.forEach(link => {
-        // Check if the link does not have a target attribute and its href contains the word "watch"
-        if (!link.hasAttribute('target') && link.href.toLowerCase().includes('watch?')) {
-            // Add target="_blank" attribute to the link
-            link.setAttribute('target', '_blank');
-        }
-    });
+//     // Loop through each link
+//     links.forEach(link => {
+//         // Check if the link does not have a target attribute and its href contains the word "watch"
+//         if (!link.hasAttribute('target') && link.href.toLowerCase().includes('watch?')) {
+//             // Add target="_blank" attribute to the link
+//             link.setAttribute('target', '_blank');
+//         }
+//     });
 
-    // Call modifyLinks again after 1 second
-    setTimeout(open_link_in_new, 1000);
+//     // Call modifyLinks again after 1 second
+//     setTimeout(open_link_in_new, 1000);
 
-}
+// }
 
 
-function open_link_in_new() {
-    if (window.location.href.includes("watch?")) {
-        // Page URL contains the word "watch"
-        console.log("No need to make video open in new tab");
-        // Your additional logic here
-    } else {
+// function open_link_in_new() {
+//     if (window.location.href.includes("watch?")) {
+//         // Page URL contains the word "watch"
+//         console.log("No need to make video open in new tab");
+//         // Your additional logic here
+//     } else {
 
-        console.log("Videos should be opned in new tab");
-        open_link_in_new_tab();
-    }
+//         console.log("Videos should be opned in new tab");
+//         open_link_in_new_tab();
+//     }
 
-}
+// }
 
 
 function autoplay_video() {
@@ -59,13 +59,15 @@ function autoplay_video() {
 }
 
 
+
+
 function load_custom_playback_speed() {
 
     // Assuming 'videoElement' is a reference to the <video> element
-    const videoElement = document.querySelector('video');
+    videoElement = document.querySelector('video');
 
     browser.storage.local.get('bmy_playback_speed').then(result => {
-        const data = Number(result.bmy_playback_speed);
+        data = Number(result.bmy_playback_speed);
 
         console.log('Retrieved playback speed:', data);
 
@@ -75,9 +77,6 @@ function load_custom_playback_speed() {
     }).catch(error => {
         console.error('Error retrieving playback speed:', error);
     });
-
-
-
 
 }
 
@@ -127,23 +126,54 @@ function on_player_settings_clicked() {
 
 }
 
+function on_video_played() {
+    videoElement = document.querySelector('video');
+    load_custom_playback_speed();
+    videoElement.addEventListener("play", (event) => {
+        console.log("Player Started");
 
+        load_custom_playback_speed();
 
+    });
 
-
-function yotube_logo() {
-    return `
-    
-<a href="http://m.youtube.com/" style="font-size:25px;" >  <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" height="25px" style="margin-left:10px;" >  YouTube </a>
-    
-    `;
+    setTimeout(on_player_settings_clicked, 1000);
+    // if (videoElement.onplaying()) {
+    //     console.log('The video is currently playing.');
+    //     load_custom_playback_speed();
+    // } else {
+    //     autoplay_video();
+    //     setTimeout(load_custom_playback_speed, 1000);
+    // }
 }
 
-function youtube_loading() {
 
-    return `<a href="http://m.youtube.com/" style="font-size:25px;" >  <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" height="25px" style="margin-left:10px;" >  Loading... </a>`;
+function loop_to_check_player_visibility() {
+    console.log("checking if player is visible");
+    videoElement = document.querySelector('video');
+
+    if (videoElement.checkVisibility()) {
+        on_video_played();
+    } else {
+        setTimeout(loop_to_check_player_visibility, 1000);
+    }
 
 }
+
+
+
+// function yotube_logo() {
+//     return `
+
+// <a href="http://m.youtube.com/" style="font-size:25px;" >  <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" height="25px" style="margin-left:10px;" >  YouTube </a>
+
+//     `;
+// }
+
+// function youtube_loading() {
+
+//     return `<a href="http://m.youtube.com/" style="font-size:25px;" >  <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" height="25px" style="margin-left:10px;" >  Loading... </a>`;
+
+// }
 
 
 
@@ -213,35 +243,43 @@ function on_yt_logo_clicked() {
 }
 
 
-function on_video_page() {
-    document.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', function (event) {
-            // Get the href attribute of the clicked link
-            const href = this.getAttribute('href');
+// function on_video_page() {
+//     document.querySelectorAll('a').forEach(link => {
+//         link.addEventListener('click', function (event) {
+//             // Get the href attribute of the clicked link
+//             const href = this.getAttribute('href');
 
-            // Navigate to the clicked link
-            window.location.href = href;
-        });
-    });
-}
+//             // Navigate to the clicked link
+//             window.location.href = href;
+//         });
+//     });
+// }
+
+
+
 
 
 function run_extentions_functions() {
     console.log("Extention Functions now runing");
 
-    setTimeout(on_video_page, 1500);
+    // setTimeout(on_video_page, 1500);
 
-    setTimeout(autoplay_video, 500);
+    // setTimeout(autoplay_video, 500);
 
-    setTimeout(on_player_settings_clicked, 3000);
+    // setTimeout(on_player_settings_clicked, 3000);
 
-    setTimeout(load_custom_playback_speed, 2000);
+    // setTimeout(load_custom_playback_speed, 2000);
 
     // setTimeout(change_youtube_logo, 1000);
 
     setTimeout(on_yt_logo_clicked, 1000);
 
+    // setTimeout(on_video_played, 1000);
+
     // setTimeout(open_link_in_new, 1500);
+
+    setTimeout(loop_to_check_player_visibility, 1000);
+
 
 
     // just incase for very slow connections
