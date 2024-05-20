@@ -146,27 +146,70 @@ function youtube_loading() {
 }
 
 
-function change_youtube_logo() {
-    youtube_logo = document.getElementsByTagName('ytm-home-logo');
-    youtube_logo[0].innerHTML = yotube_logo();
-    console.log("Youtube Logo Changed.");
-}
 
-function change_youtube_logo_2_loading() {
-    youtube_logo = document.getElementsByTagName('ytm-home-logo');
-    youtube_logo[0].innerHTML = youtube_loading();
-}
 
+// function change_youtube_logo_2_loading() {
+//     youtube_logo = document.getElementsByTagName('ytm-home-logo');
+//     youtube_logo[0].innerHTML = youtube_loading();
+
+//     // custmon_logo_element = document.createElement('div');
+//     // custmon_logo_element.setAttribute("id", "bmy-yt-logo");
+
+//     // youtube_logo[0].after(custmon_logo_element);
+//     // youtube_logo[0].style.display = "none";
+
+//     // bmy_logo_ele = document.getElementById("bmy-yt-logo");
+//     // bmy_logo_ele.innerHTML = 
+
+//     // youtube_logo[0].innerHTML = youtube_loading();
+// }
+
+
+// function change_youtube_logo() {
+//     // youtube_logo = document.getElementById('bmy-yt-logo');
+//     // youtube_logo.innerHTML = yotube_logo();
+
+//     youtube_logo = document.getElementsByTagName('ytm-home-logo');
+//     youtube_logo[0].innerHTML = yotube_logo();
+
+
+//     // youtube_logo[0].innerHTML = yotube_logo();
+//     // console.log("Youtube Logo Changed.");
+// }
+
+// function on_youtube_header_update() {
+
+//     var observer = new MutationObserver(function (mutations) {
+//         mutations.forEach(function (mutation) {
+//             console.log(mutation);
+//         });
+//     });
+
+//     var config = { characterData: true, subtree: true };
+//     observer.observe(observables, config);
+
+// }
 
 function on_yt_logo_clicked() {
-    let youtube_logo = document.getElementsByTagName('ytm-home-logo');
-    yotube_logo.addEventListener("click", function (event) {
+    console.log("ytl-listner");
+    youtube_logo = document.getElementsByClassName('mobile-topbar-header-endpoint');
+    youtube_logo[0].addEventListener("click", function (event) {
         // Get the href attribute of the clicked link
-        const href = "https://m.youtube.com/";
+        const yt_href = "https://m.youtube.com/";
+        console.log("ytl clicked");
 
         // Navigate to the clicked link
-        window.location.href = href;
+        window.location.href = yt_href;
     });
+    // youtube_logo.forEach(youtube_log => {
+    //     youtube_log.addEventListener('click', function (event) {
+    //         // Your event handling logic here
+    //         const yt_href = "https://m.youtube.com/";
+
+    //         // Navigate to the clicked link
+    //         window.location.href = yt_href;
+    //     });
+    // });
 }
 
 
@@ -194,7 +237,7 @@ function run_extentions_functions() {
 
     setTimeout(load_custom_playback_speed, 2000);
 
-    setTimeout(change_youtube_logo, 1000);
+    // setTimeout(change_youtube_logo, 1000);
 
     setTimeout(on_yt_logo_clicked, 1000);
 
@@ -202,15 +245,15 @@ function run_extentions_functions() {
 
 
     // just incase for very slow connections
-    setTimeout(change_youtube_logo, 5000);
-    setTimeout(change_youtube_logo, 10000);
-    setTimeout(change_youtube_logo, 20000);
+    // setTimeout(change_youtube_logo, 5000);
+    // setTimeout(change_youtube_logo, 10000);
+    // setTimeout(change_youtube_logo, 20000);
 
 
 }
 
 
-setTimeout(change_youtube_logo_2_loading, 1000);
+// setTimeout(change_youtube_logo_2_loading, 1000);
 
 setTimeout(run_extentions_functions, 1000); // Delay of 1000 = 1 seconds
 
