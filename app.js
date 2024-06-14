@@ -1,6 +1,6 @@
 
-// show extention is loaded
-console.log("Better Mobile Youtube is Loaded!");
+// show extension is loaded
+console.log("Better Mobile Youtube has been Loaded!");
 
 
 
