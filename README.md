@@ -10,8 +10,6 @@ At the moment there are no settings available for users to enable or disable fea
 ## Installation Instructions
 The extension can still be installed on Firefox for Android by visting the extension page and then using the "Add to Firefox" button.
 
-You can alternatively 
-
 To install extension from addons.mozilla.org follow this link. [https://addons.mozilla.org/en-US/firefox/addon/better-mobile-youtube/](https://addons.mozilla.org/en-US/firefox/addon/better-mobile-youtube/) 
 
 ## Contributions
