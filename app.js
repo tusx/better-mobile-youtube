@@ -1,6 +1,6 @@
 
-// show extention is loaded
-console.log("Better Mobile Youtube is Loaded!");
+// show extension is loaded
+console.log("[Better Mobile Youtube] Better Mobile Youtube has been Loaded!");
 
 
 
@@ -27,11 +27,11 @@ console.log("Better Mobile Youtube is Loaded!");
 // function open_link_in_new() {
 //     if (window.location.href.includes("watch?")) {
 //         // Page URL contains the word "watch"
-//         console.log("No need to make video open in new tab");
+//         console.log("[Better Mobile Youtube] No need to make video open in new tab");
 //         // Your additional logic here
 //     } else {
 
-//         console.log("Videos should be opned in new tab");
+//         console.log("[Better Mobile Youtube] Videos should be opned in new tab");
 //         open_link_in_new_tab();
 //     }
 
@@ -55,7 +55,7 @@ function autoplay_video() {
     const videoElement = document.querySelector('video');
     // videoElement.play();
 
-    console.log("Auto Play Done");
+    console.log('[Better Mobile Youtube] Auto Play Done');
 }
 
 
@@ -67,21 +67,25 @@ function load_custom_playback_speed() {
     videoElement = document.querySelector('video');
 
     browser.storage.local.get('bmy_playback_speed').then(result => {
+        console.log('[Better Mobile Youtube]: ');
+        console.log(result.bmy_playback_speed);
+
         data = Number(result.bmy_playback_speed);
 
-        console.log('Retrieved playback speed:', data);
+        console.log('[Better Mobile Youtube] Retrieved playback speed:', data);
 
         // Set the playback rate
         videoElement.playbackRate = data;
 
     }).catch(error => {
-        console.error('Error retrieving playback speed:', error);
+        console.error('[Better Mobile Youtube] Error retrieving playback speed:', error);
     });
 
 }
 
 function on_playback_speed_changed() {
 
+    console.log('Detected playback speed changed');
     // Get a reference to the select element
     const selectElement = document.getElementById('player-speed-dropdown:3');
 
@@ -91,13 +95,13 @@ function on_playback_speed_changed() {
         data = event.target.value;
 
         browser.storage.local.set({ "bmy_playback_speed": data }).then(() => {
-            console.log('playback speed saved locally:', data);
+            console.log('[Better Mobile Youtube] playback speed saved locally:', data);
 
         }).catch(error => {
-            console.error('Error saving playback speed:', error);
+            console.error('[Better Mobile Youtube] Error saving playback speed:', error);
         });
 
-        console.log('Saved playback speed:', event.target.value);
+        console.log('[Better Mobile Youtube] Saved playback speed:', event.target.value);
     });
 
 }
@@ -105,7 +109,7 @@ function on_playback_speed_changed() {
 
 function on_player_settings_clicked() {
 
-    console.log("Player settings Watcher, ON!");
+    console.log("[Better Mobile Youtube] Player settings Watcher, ON!");
 
     // Get all elements with the specified class
     const buttons = document.querySelectorAll('.player-settings-icon');
@@ -114,7 +118,7 @@ function on_player_settings_clicked() {
     buttons.forEach(button => {
         button.addEventListener('click', function (event) {
             // Your event handling logic here
-            console.log('Player Settings Button clicked');
+            console.log('[Better Mobile Youtube] Player Settings Button clicked');
             // on_playback_speed_changed();
             setTimeout(on_playback_speed_changed, 500);
             setTimeout(change_youtube_logo, 500);
@@ -130,7 +134,7 @@ function on_video_played() {
     videoElement = document.querySelector('video');
     load_custom_playback_speed();
     videoElement.addEventListener("play", (event) => {
-        console.log("Player Started");
+        console.log("[Better Mobile Youtube] Player Started");
 
         load_custom_playback_speed();
 
@@ -138,7 +142,7 @@ function on_video_played() {
 
     setTimeout(on_player_settings_clicked, 1000);
     // if (videoElement.onplaying()) {
-    //     console.log('The video is currently playing.');
+    //     console.log('[Better Mobile Youtube] The video is currently playing.');
     //     load_custom_playback_speed();
     // } else {
     //     autoplay_video();
@@ -148,7 +152,7 @@ function on_video_played() {
 
 
 function loop_to_check_player_visibility() {
-    console.log("checking if player is visible");
+    console.log("[Better Mobile Youtube] checking if player is visible");
     videoElement = document.querySelector('video');
 
     if (videoElement.checkVisibility()) {
@@ -204,13 +208,14 @@ function loop_to_check_player_visibility() {
 
 
 //     // youtube_logo[0].innerHTML = yotube_logo();
-//     // console.log("Youtube Logo Changed.");
+//     // console.log("[Better Mobile Youtube] Youtube Logo Changed.");
 // }
 
 // function on_youtube_header_update() {
 
 //     var observer = new MutationObserver(function (mutations) {
 //         mutations.forEach(function (mutation) {
+//             console.log("[Better Mobile Youtube]:")
 //             console.log(mutation);
 //         });
 //     });
@@ -221,12 +226,12 @@ function loop_to_check_player_visibility() {
 // }
 
 function on_yt_logo_clicked() {
-    console.log("ytl-listner");
+    console.log("[Better Mobile Youtube] ytl-listner");
     youtube_logo = document.getElementsByClassName('mobile-topbar-header-endpoint');
     youtube_logo[0].addEventListener("click", function (event) {
         // Get the href attribute of the clicked link
         const yt_href = "https://m.youtube.com/";
-        console.log("ytl clicked");
+        console.log("[Better Mobile Youtube] ytl clicked");
 
         // Navigate to the clicked link
         window.location.href = yt_href;
@@ -259,8 +264,8 @@ function on_yt_logo_clicked() {
 
 
 
-function run_extentions_functions() {
-    console.log("Extention Functions now runing");
+function run_extension_functions() {
+    console.log("[Better Mobile Youtube] Extension Functions now runing");
 
     // setTimeout(on_video_page, 1500);
 
@@ -293,5 +298,5 @@ function run_extentions_functions() {
 
 // setTimeout(change_youtube_logo_2_loading, 1000);
 
-setTimeout(run_extentions_functions, 1000); // Delay of 1000 = 1 seconds
+setTimeout(run_extension_functions, 1000); // Delay of 1000 = 1 seconds
 
