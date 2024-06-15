@@ -3,7 +3,7 @@
 
 Better Mobile Youtube aims to provide a better user experience and more features for mobile Youtube on Firefox.
 
-The extention is currently in the experimental stage so you may find bugs that still need to be fixed. It would be appreciated if you opened issues documenting any bugs or problems you run into.
+The extension is currently in the experimental stage so you may find bugs that still need to be fixed. It would be appreciated if you opened issues documenting any bugs or problems you run into.
 
 At the moment there are no settings available for users to enable or disable features, all features are enabled.
 

@@ -55,7 +55,7 @@ function autoplay_video() {
     const videoElement = document.querySelector('video');
     // videoElement.play();
 
-    console.log("[Better Mobile Youtube] Auto Play Done");
+    console.log('[Better Mobile Youtube] Auto Play Done');
 }
 
 
@@ -67,6 +67,9 @@ function load_custom_playback_speed() {
     videoElement = document.querySelector('video');
 
     browser.storage.local.get('bmy_playback_speed').then(result => {
+        console.log('[Better Mobile Youtube]: ');
+        console.log(result.bmy_playback_speed);
+
         data = Number(result.bmy_playback_speed);
 
         console.log('[Better Mobile Youtube] Retrieved playback speed:', data);
@@ -82,6 +85,7 @@ function load_custom_playback_speed() {
 
 function on_playback_speed_changed() {
 
+    console.log('Detected playback speed changed');
     // Get a reference to the select element
     const selectElement = document.getElementById('player-speed-dropdown:3');
 
@@ -260,8 +264,8 @@ function on_yt_logo_clicked() {
 
 
 
-function run_extentions_functions() {
-    console.log("[Better Mobile Youtube] Extention Functions now runing");
+function run_extension_functions() {
+    console.log("[Better Mobile Youtube] Extension Functions now runing");
 
     // setTimeout(on_video_page, 1500);
 
@@ -294,5 +298,5 @@ function run_extentions_functions() {
 
 // setTimeout(change_youtube_logo_2_loading, 1000);
 
-setTimeout(run_extentions_functions, 1000); // Delay of 1000 = 1 seconds
+setTimeout(run_extension_functions, 1000); // Delay of 1000 = 1 seconds
 
