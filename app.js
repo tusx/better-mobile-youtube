@@ -70,12 +70,16 @@ function load_custom_playback_speed() {
         console.log('[Better Mobile Youtube]: ');
         console.log(result.bmy_playback_speed);
 
-        data = Number(result.bmy_playback_speed);
+        if (result.bmy_playback_speed == null || result.bmy_playback_speed == undefined) {
+            return
+        } else {
+            data = Number(result.bmy_playback_speed);
 
-        console.log('[Better Mobile Youtube] Retrieved playback speed:', data);
+            console.log('[Better Mobile Youtube] Retrieved playback speed:', data);
 
-        // Set the playback rate
-        videoElement.playbackRate = data;
+            // Set the playback rate
+            videoElement.playbackRate = data;
+        }
 
     }).catch(error => {
         console.error('[Better Mobile Youtube] Error retrieving playback speed:', error);
@@ -265,7 +269,7 @@ function on_yt_logo_clicked() {
 
 
 function run_extension_functions() {
-    console.log("[Better Mobile Youtube] Extension Functions now runing");
+    console.log("[Better Mobile Youtube] Extension Functions now running");
 
     // setTimeout(on_video_page, 1500);
 
