@@ -67,8 +67,7 @@ function load_custom_playback_speed() {
     videoElement = document.querySelector('video');
 
     browser.storage.local.get('bmy_playback_speed').then(result => {
-        console.log('[Better Mobile Youtube]: ');
-        console.log(result.bmy_playback_speed);
+        console.log('[Better Mobile Youtube]: ', result.bmy_playback_speed);
 
         if (result.bmy_playback_speed == null || result.bmy_playback_speed == undefined) {
             return
@@ -158,7 +157,18 @@ function on_video_played() {
 
     });
 
-    setTimeout(on_player_settings_clicked, 1000);
+
+    // Check whether the settings button exists since firefox prevents it from loading due to autoplay with sound prevention
+    function loadCheckSettings() {
+        if (document.querySelector('.player-settings-icon')) {
+            on_player_settings_clicked()
+        } else {
+          setTimeout(loadCheckSettings, 25);
+        }
+    }
+    
+    loadCheckSettings()
+
     // if (videoElement.onplaying()) {
     //     console.log('[Better Mobile Youtube] The video is currently playing.');
     //     load_custom_playback_speed();
@@ -317,5 +327,16 @@ function run_extension_functions() {
 
 // setTimeout(change_youtube_logo_2_loading, 1000);
 
-setTimeout(run_extension_functions, 1000); // Delay of 1000 = 1 seconds
+function loadCheck() {
+    if (document.getElementsByClassName('mobile-topbar-header-endpoint')) {
+        run_extension_functions()
+    } else {
+      setTimeout(loadCheck, 15);
+    }
+}
 
+loadCheck()
+
+/* Set time delay for activating extension functions
+setTimeout(run_extension_functions, 1000); // Delay of 1000 = 1 seconds
+*/
