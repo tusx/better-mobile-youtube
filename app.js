@@ -115,10 +115,24 @@ function on_player_settings_clicked() {
 
     console.log("[Better Mobile Youtube] Player settings Watcher, ON!");
 
-    // Get all elements with the specified class
+    // Get the element with the specified class
+    const button = document.querySelector('.player-settings-icon');
+
+    console.log("[Better Mobile Youtube]:", button)
+    // Add an event listener to the button
+    button.addEventListener('click', function (event) {
+        // Your event handling logic here
+        console.log('[Better Mobile Youtube] Player Settings Button clicked');
+        // on_playback_speed_changed();
+        setTimeout(on_playback_speed_changed, 500);
+        setTimeout(change_youtube_logo, 500);
+        setTimeout(change_youtube_logo, 10000);
+    });
+
+/* Accounting for multiple buttons
+
     const buttons = document.querySelectorAll('.player-settings-icon');
 
-    // Iterate through each button and add an event listener
     buttons.forEach(button => {
         button.addEventListener('click', function (event) {
             // Your event handling logic here
@@ -129,7 +143,7 @@ function on_player_settings_clicked() {
             setTimeout(change_youtube_logo, 10000);
         });
     });
-
+*/
 
 
 }
@@ -275,7 +289,8 @@ function run_extension_functions() {
 
     // setTimeout(autoplay_video, 500);
 
-    // setTimeout(on_player_settings_clicked, 3000);
+    /* setTimeout(on_player_settings_clicked, 3000); 
+    Function is called in on_video_played() */
 
     // setTimeout(load_custom_playback_speed, 2000);
 
