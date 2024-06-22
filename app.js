@@ -2,7 +2,7 @@
 // show extension is loaded
 console.log("[Better Mobile Youtube] Better Mobile Youtube has been Loaded!");
 
-
+let currentURL = window.location.href.replace(/\#.*/, '');
 
 // function open_link_in_new_tab() {
 
@@ -147,8 +147,7 @@ function on_player_settings_clicked() {
 
 }
 
-function on_video_played() {
-    videoElement = document.querySelector('video');
+function on_video_played(videoElement) {
     load_custom_playback_speed();
     videoElement.addEventListener("play", (event) => {
         console.log("[Better Mobile Youtube] Player Started");
@@ -186,7 +185,7 @@ function loop_to_check_player_visibility() {
     if (videoElement) {
         if (videoElement.checkVisibility()) {
             console.log("[Better Mobile Youtube] Player is visible");
-            on_video_played();
+            on_video_played(videoElement);           
         } else {
             setTimeout(loop_to_check_player_visibility, 150);
             console.log("[Better Mobile Youtube] Player is not visible");
@@ -320,6 +319,16 @@ function run_extension_functions() {
 
     setTimeout(loop_to_check_player_visibility, 200);
 
+
+    // Check when the url changes and insure that the actual webpage has changed, if yes run loop_to_check_player_visibility again
+    window.addEventListener('popstate', function (event) {
+        if (window.location.href.replace(/\#.*/, '') == currentURL) {
+            console.log("Url the same")
+        } else {
+            currentURL = window.location.href.replace(/\#.*/, '')
+            loop_to_check_player_visibility()
+        }
+    }); 
 
 
     // just incase for very slow connections
