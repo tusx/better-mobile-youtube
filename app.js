@@ -163,7 +163,7 @@ function on_video_played() {
         if (document.querySelector('.player-settings-icon')) {
             on_player_settings_clicked()
         } else {
-          setTimeout(loadCheckSettings, 25);
+            setTimeout(loadCheckSettings, 25);
         }
     }
     
@@ -181,12 +181,18 @@ function on_video_played() {
 
 function loop_to_check_player_visibility() {
     console.log("[Better Mobile Youtube] checking if player is visible");
-    videoElement = document.querySelector('video');
+    videoElement = document.querySelector('.html5-main-video');
 
-    if (videoElement.checkVisibility()) {
-        on_video_played();
+    if (videoElement) {
+        if (videoElement.checkVisibility()) {
+            console.log("[Better Mobile Youtube] Player is visible");
+            on_video_played();
+        } else {
+            setTimeout(loop_to_check_player_visibility, 150);
+            console.log("[Better Mobile Youtube] Player is not visible");
+        }
     } else {
-        setTimeout(loop_to_check_player_visibility, 1000);
+        setTimeout(loop_to_check_player_visibility, 150);
     }
 
 }
@@ -306,13 +312,13 @@ function run_extension_functions() {
 
     // setTimeout(change_youtube_logo, 1000);
 
-    setTimeout(on_yt_logo_clicked, 1000);
+    setTimeout(on_yt_logo_clicked, 200);
 
     // setTimeout(on_video_played, 1000);
 
     // setTimeout(open_link_in_new, 1500);
 
-    setTimeout(loop_to_check_player_visibility, 1000);
+    setTimeout(loop_to_check_player_visibility, 200);
 
 
 
@@ -331,7 +337,7 @@ function loadCheck() {
     if (document.getElementsByClassName('mobile-topbar-header-endpoint')) {
         run_extension_functions()
     } else {
-      setTimeout(loadCheck, 15);
+        setTimeout(loadCheck, 15);
     }
 }
 
