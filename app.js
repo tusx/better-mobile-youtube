@@ -342,7 +342,7 @@ function run_extension_functions() {
 
 // setTimeout(change_youtube_logo_2_loading, 1000);
 
-function loadCheck() {
+function checkIfPageElementsLoaded() {
     if (document.getElementsByClassName('mobile-topbar-header-endpoint')) {
         run_extension_functions()
     } else {
@@ -350,7 +350,7 @@ function loadCheck() {
     }
 }
 
-loadCheck()
+checkIfPageElementsLoaded()
 
 /* Set time delay for activating extension functions
 setTimeout(run_extension_functions, 1000); // Delay of 1000 = 1 seconds
