@@ -194,6 +194,16 @@ function loop_to_check_player_visibility() {
 }
 
 
+function noticeWhenWebpageChanged() {
+    window.addEventListener('popstate', function (event) {
+        if (window.location.href.replace(/\#.*/, '') == currentURL) {
+            console.log("Url the same");
+        } else {
+            currentURL = window.location.href.replace(/\#.*/, '');
+            loop_to_check_player_visibility();
+        }
+    });
+}
 
 // function yotube_logo() {
 //     return `
@@ -319,17 +329,8 @@ function run_extension_functions() {
     // Check whether the settings button exists since firefox prevents it from loading due to autoplay with sound prevention
     loadCheckSettings()
 
-
     // Check when the url changes and insure that the actual webpage has changed, if yes run loop_to_check_player_visibility again
-    window.addEventListener('popstate', function (event) {
-        if (window.location.href.replace(/\#.*/, '') == currentURL) {
-            console.log("Url the same")
-        } else {
-            currentURL = window.location.href.replace(/\#.*/, '')
-            loop_to_check_player_visibility()
-        }
-    }); 
-
+    noticeWhenWebpageChanged();
 
     // just incase for very slow connections
     // setTimeout(change_youtube_logo, 5000);
