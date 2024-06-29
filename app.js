@@ -155,18 +155,7 @@ function on_video_played(videoElement) {
         load_custom_playback_speed();
 
     });
-
-
-    // Check whether the settings button exists since firefox prevents it from loading due to autoplay with sound prevention
-    function loadCheckSettings() {
-        if (document.querySelector('.player-settings-icon')) {
-            on_player_settings_clicked()
-        } else {
-            setTimeout(loadCheckSettings, 25);
-        }
-    }
     
-    loadCheckSettings()
 
     // if (videoElement.onplaying()) {
     //     console.log('[Better Mobile Youtube] The video is currently playing.');
@@ -175,6 +164,14 @@ function on_video_played(videoElement) {
     //     autoplay_video();
     //     setTimeout(load_custom_playback_speed, 1000);
     // }
+}
+
+function loadCheckSettings() {
+    if (document.querySelector('.player-settings-icon')) {
+        on_player_settings_clicked()
+    } else {
+        setTimeout(loadCheckSettings, 25);
+    }
 }
 
 
@@ -318,6 +315,9 @@ function run_extension_functions() {
     // setTimeout(open_link_in_new, 1500);
 
     setTimeout(loop_to_check_player_visibility, 200);
+
+    // Check whether the settings button exists since firefox prevents it from loading due to autoplay with sound prevention
+    loadCheckSettings()
 
 
     // Check when the url changes and insure that the actual webpage has changed, if yes run loop_to_check_player_visibility again
