@@ -61,7 +61,6 @@ function on_playback_speed_changed() {
 
     // Add an event listener for the 'change' event
     selectElement.addEventListener('change', function (event) {
-        // Your event handling logic here
         data = event.target.value;
 
         browser.storage.local.set({ "bmy_playback_speed": data }).then(() => {
@@ -71,7 +70,7 @@ function on_playback_speed_changed() {
             console.error('[Better Mobile Youtube] Error saving playback speed:', error);
         });
 
-        console.log('[Better Mobile Youtube] Saved playback speed:', event.target.value);
+
     });
 
 }
@@ -98,7 +97,6 @@ function on_player_settings_clicked() {
 }
 
 function on_video_played(videoElement) {
-    load_custom_playback_speed();
     videoElement.addEventListener("play", (event) => {
         console.log("[Better Mobile Youtube] Player Started");
 
