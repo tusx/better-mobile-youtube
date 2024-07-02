@@ -91,8 +91,7 @@ function on_player_settings_clicked() {
         console.log('[Better Mobile Youtube] Player Settings Button clicked');
         // on_playback_speed_changed();
         setTimeout(on_playback_speed_changed, 500);
-        setTimeout(change_youtube_logo, 500);
-        setTimeout(change_youtube_logo, 10000);
+
     });
 
 
@@ -110,11 +109,11 @@ function on_video_played(videoElement) {
 
 }
 
-function checkIfSettingsBtnExists() {
+function checkIfSettingsBtnExist() {
     if (document.querySelector('.player-settings-icon')) {
         on_player_settings_clicked()
     } else {
-        setTimeout(checkIfSettingsBtnExists, 25);
+        setTimeout(checkIfSettingsBtnExist, 25);
     }
 }
 
@@ -188,7 +187,7 @@ function run_extension_functions() {
     setTimeout(loop_to_check_player_visibility, 200);
 
     // Check whether the settings button exists since firefox prevents it from loading due to autoplay with sound prevention
-    checkIfSettingsBtnExists()
+    checkIfSettingsBtnExist()
 
     // Check when the url changes and insure that the actual webpage has changed, if yes run loop_to_check_player_visibility again
     noticeWhenWebpageChanged();
