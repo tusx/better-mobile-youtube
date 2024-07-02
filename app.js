@@ -2,7 +2,7 @@
 // show extension is loaded
 console.log("[Better Mobile Youtube] Better Mobile Youtube has been Loaded!");
 
-
+let currentURL = window.location.href.replace(/\#.*/, '');
 
 // function open_link_in_new_tab() {
 
@@ -67,15 +67,18 @@ function load_custom_playback_speed() {
     videoElement = document.querySelector('video');
 
     browser.storage.local.get('bmy_playback_speed').then(result => {
-        console.log('[Better Mobile Youtube]: ');
-        console.log(result.bmy_playback_speed);
+        console.log('[Better Mobile Youtube]: ', result.bmy_playback_speed);
 
-        data = Number(result.bmy_playback_speed);
+        if (result.bmy_playback_speed == null || result.bmy_playback_speed == undefined) {
+            return
+        } else {
+            data = Number(result.bmy_playback_speed);
 
-        console.log('[Better Mobile Youtube] Retrieved playback speed:', data);
+            console.log('[Better Mobile Youtube] Retrieved playback speed:', data);
 
-        // Set the playback rate
-        videoElement.playbackRate = data;
+            // Set the playback rate
+            videoElement.playbackRate = data;
+        }
 
     }).catch(error => {
         console.error('[Better Mobile Youtube] Error retrieving playback speed:', error);
@@ -111,10 +114,24 @@ function on_player_settings_clicked() {
 
     console.log("[Better Mobile Youtube] Player settings Watcher, ON!");
 
-    // Get all elements with the specified class
+    // Get the element with the specified class
+    const button = document.querySelector('.player-settings-icon');
+
+    console.log("[Better Mobile Youtube]:", button)
+    // Add an event listener to the button
+    button.addEventListener('click', function (event) {
+        // Your event handling logic here
+        console.log('[Better Mobile Youtube] Player Settings Button clicked');
+        // on_playback_speed_changed();
+        setTimeout(on_playback_speed_changed, 500);
+        setTimeout(change_youtube_logo, 500);
+        setTimeout(change_youtube_logo, 10000);
+    });
+
+/* Accounting for multiple buttons
+
     const buttons = document.querySelectorAll('.player-settings-icon');
 
-    // Iterate through each button and add an event listener
     buttons.forEach(button => {
         button.addEventListener('click', function (event) {
             // Your event handling logic here
@@ -125,13 +142,12 @@ function on_player_settings_clicked() {
             setTimeout(change_youtube_logo, 10000);
         });
     });
-
+*/
 
 
 }
 
-function on_video_played() {
-    videoElement = document.querySelector('video');
+function on_video_played(videoElement) {
     load_custom_playback_speed();
     videoElement.addEventListener("play", (event) => {
         console.log("[Better Mobile Youtube] Player Started");
@@ -139,8 +155,8 @@ function on_video_played() {
         load_custom_playback_speed();
 
     });
+    
 
-    setTimeout(on_player_settings_clicked, 1000);
     // if (videoElement.onplaying()) {
     //     console.log('[Better Mobile Youtube] The video is currently playing.');
     //     load_custom_playback_speed();
@@ -150,20 +166,44 @@ function on_video_played() {
     // }
 }
 
+function loadCheckSettings() {
+    if (document.querySelector('.player-settings-icon')) {
+        on_player_settings_clicked()
+    } else {
+        setTimeout(loadCheckSettings, 25);
+    }
+}
+
 
 function loop_to_check_player_visibility() {
     console.log("[Better Mobile Youtube] checking if player is visible");
-    videoElement = document.querySelector('video');
+    videoElement = document.querySelector('.html5-main-video');
 
-    if (videoElement.checkVisibility()) {
-        on_video_played();
+    if (videoElement) {
+        if (videoElement.checkVisibility()) {
+            console.log("[Better Mobile Youtube] Player is visible");
+            on_video_played(videoElement);           
+        } else {
+            setTimeout(loop_to_check_player_visibility, 150);
+            console.log("[Better Mobile Youtube] Player is not visible");
+        }
     } else {
-        setTimeout(loop_to_check_player_visibility, 1000);
+        setTimeout(loop_to_check_player_visibility, 150);
     }
 
 }
 
 
+function noticeWhenWebpageChanged() {
+    window.addEventListener('popstate', function (event) {
+        if (window.location.href.replace(/\#.*/, '') == currentURL) {
+            console.log("Url the same");
+        } else {
+            currentURL = window.location.href.replace(/\#.*/, '');
+            loop_to_check_player_visibility();
+        }
+    });
+}
 
 // function yotube_logo() {
 //     return `
@@ -265,27 +305,32 @@ function on_yt_logo_clicked() {
 
 
 function run_extension_functions() {
-    console.log("[Better Mobile Youtube] Extension Functions now runing");
+    console.log("[Better Mobile Youtube] Extension Functions now running");
 
     // setTimeout(on_video_page, 1500);
 
     // setTimeout(autoplay_video, 500);
 
-    // setTimeout(on_player_settings_clicked, 3000);
+    /* setTimeout(on_player_settings_clicked, 3000); 
+    Function is called in on_video_played() */
 
     // setTimeout(load_custom_playback_speed, 2000);
 
     // setTimeout(change_youtube_logo, 1000);
 
-    setTimeout(on_yt_logo_clicked, 1000);
+    setTimeout(on_yt_logo_clicked, 200);
 
     // setTimeout(on_video_played, 1000);
 
     // setTimeout(open_link_in_new, 1500);
 
-    setTimeout(loop_to_check_player_visibility, 1000);
+    setTimeout(loop_to_check_player_visibility, 200);
 
+    // Check whether the settings button exists since firefox prevents it from loading due to autoplay with sound prevention
+    loadCheckSettings()
 
+    // Check when the url changes and insure that the actual webpage has changed, if yes run loop_to_check_player_visibility again
+    noticeWhenWebpageChanged();
 
     // just incase for very slow connections
     // setTimeout(change_youtube_logo, 5000);
@@ -298,5 +343,16 @@ function run_extension_functions() {
 
 // setTimeout(change_youtube_logo_2_loading, 1000);
 
-setTimeout(run_extension_functions, 1000); // Delay of 1000 = 1 seconds
+function checkIfPageElementsLoaded() {
+    if (document.getElementsByClassName('mobile-topbar-header-endpoint')) {
+        run_extension_functions()
+    } else {
+        setTimeout(loadCheck, 15);
+    }
+}
 
+checkIfPageElementsLoaded()
+
+/* Set time delay for activating extension functions
+setTimeout(run_extension_functions, 1000); // Delay of 1000 = 1 seconds
+*/
