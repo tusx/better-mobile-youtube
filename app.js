@@ -84,7 +84,7 @@ function on_player_settings_clicked() {
     // Get the element with the specified class
     const button = document.querySelector('.player-settings-icon');
 
-    console.log("[Better Mobile Youtube]:", button)
+
     // Add an event listener to the button
     button.addEventListener('click', function (event) {
         // Your event handling logic here
