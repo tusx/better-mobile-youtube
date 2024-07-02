@@ -34,10 +34,12 @@ function load_custom_playback_speed() {
     videoElement = document.querySelector('video');
 
     browser.storage.local.get('bmy_playback_speed').then(result => {
-        console.log('[Better Mobile Youtube]: ', result.bmy_playback_speed);
 
         if (result.bmy_playback_speed == null || result.bmy_playback_speed == undefined) {
-            return
+            playbackSpeedDefault = 1;
+            data = playbackSpeedDefault;
+            console.log("[Better Mobile Youtube] Default Playbackspeed 1 is used.")
+
         } else {
             data = Number(result.bmy_playback_speed);
 
@@ -48,7 +50,7 @@ function load_custom_playback_speed() {
         }
 
     }).catch(error => {
-        console.error('[Better Mobile Youtube] Error retrieving playback speed:', error);
+        console.error('[Better Mobile Youtube] Error retrieving or setting playback speed:', error);
     });
 
 }
