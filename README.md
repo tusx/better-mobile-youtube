@@ -13,4 +13,4 @@ The extension can still be installed on Firefox for Android by visting the exten
 To install extension from addons.mozilla.org follow this link: [https://addons.mozilla.org/en-US/firefox/addon/better-mobile-youtube/](https://addons.mozilla.org/en-US/firefox/addon/better-mobile-youtube/) 
 
 ## Contributions
-Any and all contributions are welcome and appreciated. If you wish to make contributions to the code itself, make a pull request.
+Any and all contributions are welcome and appreciated. If you wish to make contributions to the code itself, make a pull request on the dev branch. thanks
