@@ -31,7 +31,7 @@ function autoplay_video() {
 function load_custom_playback_speed() {
 
     // Assuming 'videoElement' is a reference to the <video> element
-    videoElement = document.querySelector('video');
+    videoElement = document.querySelector('.html5-main-video');
 
     browser.storage.local.get('bmy_playback_speed').then(result => {
 
@@ -57,23 +57,41 @@ function load_custom_playback_speed() {
 
 function on_playback_speed_changed() {
 
-    console.log('Detected playback speed changed');
-    // Get a reference to the select element
-    const selectElement = document.getElementById('player-speed-dropdown:3');
+    // Select the element with the class 'player-speed-settings'
+    const playerSpeedSettings = document.querySelector('.player-speed-settings');
 
-    // Add an event listener for the 'change' event
-    selectElement.addEventListener('change', function (event) {
-        data = event.target.value;
+    // Ensure the element exists
+    if (playerSpeedSettings) {
+        // Find the child element with the tag name 'select'    
+        const playerSpeedDropdown = playerSpeedSettings.querySelector('select');
 
-        browser.storage.local.set({ "bmy_playback_speed": data }).then(() => {
-            console.log('[Better Mobile Youtube] playback speed saved locally:', data);
+        // Ensure the child element exists
+        if (playerSpeedDropdown) {
 
-        }).catch(error => {
-            console.error('[Better Mobile Youtube] Error saving playback speed:', error);
-        });
+            // Add an event listener for the 'change' event
+            playerSpeedDropdown.addEventListener('change', function (event) {
+
+                console.log('Detected playback speed changed');
+
+                data = event.target.value;
+
+                browser.storage.local.set({ "bmy_playback_speed": data }).then(() => {
+                    console.log('[Better Mobile Youtube] playback speed saved locally:', data);
+
+                }).catch(error => {
+                    console.error('[Better Mobile Youtube] Error saving playback speed:', error);
+                });
+
+            });
+
+        } else {
+            console.error('Element with tag "select" not found inside player-speed-settings');
+        }
+    } else {
+        console.error('Element with class "player-speed-settings" not found');
+    }
 
 
-    });
 
 }
 
@@ -98,7 +116,9 @@ function on_player_settings_clicked() {
 
 }
 
-function on_video_played(videoElement) {
+function on_video_played() {
+    // Assuming 'videoElement' is a reference to the <video> element
+    videoElement = document.querySelector('.html5-main-video');
     videoElement.addEventListener("play", (event) => {
         console.log("[Better Mobile Youtube] Player Started");
 
@@ -125,7 +145,7 @@ function loop_to_check_player_visibility() {
     if (videoElement) {
         if (videoElement.checkVisibility()) {
             console.log("[Better Mobile Youtube] Player is visible");
-            on_video_played(videoElement);
+            on_video_played();
         } else {
             setTimeout(loop_to_check_player_visibility, 150);
             console.log("[Better Mobile Youtube] Player is not visible");
