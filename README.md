@@ -1,3 +1,8 @@
+## Update:
+This extention is no longer being mantained or updated. A good alternative is https://github.com/code-charity/youtube 
+
+[This](https://github.com/code-charity/youtube) Extention is also avalible on FireFox Android
+
 ## Better Mobile Youtube 
 <img src="https://raw.githubusercontent.com/tusx/better-mobile-youtube/main/icon.png " alt="drawing" style="height:200px;"/>
 
